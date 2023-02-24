@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Quiz</title>
+
+    <style>
+        /*#79ADDC*/
+        /*#07004D*/
+        /*#FFFCF9*/
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #FFFCF9;
+        }
+
+        #theFather {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            font-size: 3vw;
+            padding: 3vw;
+            background-color: #07004D;
+            color: white;
+            width: 100%;
+        }
+
+        #pageContent {
+            padding: 5vw;
+            background-color: #79ADDC;
+            width: 100%;
+        }
+
+        #quizForm {
+            padding: 5vw;
+            font-size: 1.4vw;
+            width: 100%;
+        }
+
+        #submit {
+            padding: 1vw;
+            font-size: 1vw;
+            background-color: #2b00ff;
+            color: white;
+            border-radius: 10px;
+        }
+
+        label {
+            font-size: 1.4vw;
+        }
+
+        #display {
+            text-align: center;
+            font-size: 2vw;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="theFather">
+        <header>Quiz</header>
+        <div id="pageContent">
+            <form id="quizForm">
+                <h2>Which of the following feature is a part of HTML 5?</h2><br>
+                <input type="radio" id="q1a1" name="q1">
+                <label for="a1">A - Persistent Local Storage</label><br>
+                <input type="radio" id="q1a2" name="q1">
+                <label for="a2">B - WebSocket</label><br>
+                <input type="radio" id="q1a3" name="q1">
+                <label for="a3">C - Server-Sent Events</label><br>
+                <input type="radio" id="q1a4" name="q1">
+                <label for="a4">D - All of the above.</label><br><br><br>
+
+                <h2>Which of the following tag represents a piece of content that is only slightly related to the rest of the page in HTML5?</h2><br>
+                <input type="radio" id="q2a1" name="q2">
+                <label for="a1">A - section</label><br>
+                <input type="radio" id="q2a2" name="q2">
+                <label for="a2">B - article</label><br>
+                <input type="radio" id="q2a3" name="q2">
+                <label for="a3">C - aside</label><br>
+                <input type="radio" id="q2a4" name="q2">
+                <label for="a4">D - header</label><br><br><br>
+
+                <h2>Which of the following input control represents a date and time (year, month, day, hour, minute, second, fractions of a second) encoded according to ISO 8601 with no time zone information in Web Form 2.0?</h2><br>
+                <input type="radio" id="q3a1" name="q3">
+                <label for="a1">A - datetime</label><br>
+                <input type="radio" id="q3a2" name="q3">
+                <label for="a2">B - datetime-local</label><br>
+                <input type="radio" id="q3a3" name="q3">
+                <label for="a3">C - date</label><br>
+                <input type="radio" id="q3a4" name="q3">
+                <label for="a4">D - month</label><br><br><br>
+
+                <h2>Which of the following is true about Session Storage in HTML5?</h2><br>
+                <input type="radio" id="q4a1" name="q4">
+                <label for="a1">HTML5 introduces the sessionStorage attribute which would be used by the sites to add data to the session storage.</label><br>
+                <input type="radio" id="q4a2" name="q4">
+                <label for="a2">It will be accessible to any page from the same site opened in that window i.e. session.</label><br>
+                <input type="radio" id="q4a3" name="q4">
+                <label for="a3">As soon as you close the window, session would be lost.</label><br>
+                <input type="radio" id="q4a4" name="q4">
+                <label for="a4">All of the above.</label><br><br><br>
+
+                <h2>How to delete a local storage data in HTML5?</h2><br>
+                <input type="radio" id="q5a1" name="q5">
+                <label for="a1">To clear a local storage setting you would need to call localStorage.remove('key'); where 'key' is the key of the value you want to remove.</label><br>
+                <input type="radio" id="q5a2" name="q5">
+                <label for="a2">If you want to clear all settings, you need to call localStorage.clear() method.</label><br>
+                <input type="radio" id="q5a3" name="q5">
+                <label for="a3">Both of the above.</label><br>
+                <input type="radio" id="q5a4" name="q5">
+                <label for="a4">None of the above.</label><br><br><br>
+
+                <input type="submit" id="submit">
+            </form>
+            <div id="display">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const quizForm = document.getElementById('quizForm');
+        const displayDiv = document.getElementById('display');
+
+        let score = 0;
+
+        let answers = [
+            document.getElementById('q1a4'),
+            document.getElementById('q2a3'),
+            document.getElementById('q3a2'),
+            document.getElementById('q4a4'),
+            document.getElementById('q5a3')
+        ];
+
+        let arr1 = [];
+
+        function displayResults(x) {
+            const previousNode = displayDiv.childNodes;
+            displayDiv.removeChild(previousNode[0]);
+
+            if (x < 4) {
+                const text = document.createTextNode('Try Again');
+                displayDiv.append(text);
+            } else if (x >= 4) {
+                const text = document.createTextNode(`Congratulations, you scored ${x}/5.`);
+                displayDiv.append(text);
+            }
+        }
+
+        quizForm.onsubmit = (e) => {
+            e.preventDefault();
+
+            arr1 = []
+            const inputList = document.querySelectorAll("input[type='radio']")
+            answers.forEach(x => {
+                if(x.checked == true) score += 1;
+            });
+
+            inputList.forEach(x => {
+                x.checked = false;
+            });
+
+            displayResults(score);
+            console.log(score);
+            score = 0;
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
